@@ -3,36 +3,51 @@ import objectsToCsv from 'objects-to-csv';
 
 const Cupones = [];
 
+
+function formatDate(date) {
+    var d = date,
+        month = '' + (d.getMonth() + 1),
+        day = '' + d.getDate(),
+        year = d.getFullYear();
+
+    if (month.length < 2) 
+        month = '0' + month;
+    if (day.length < 2) 
+        day = '0' + day;
+
+    return [year, month, day].join("");
+}
+
 function createRandomUser() {
 
     return {
         "NumTar": null,
         "NumCup": faker.random.numeric(8),
-        "FecCup": parseInt(faker.date.between('2022-01-01T00:00:00.000Z', '2022-10-18T00:00:00.000Z').toString().substring(0, 10).replace("-", "").replace("-", ""), 10), // 20220809
+        "FecCup": formatDate(faker.date.between('2022-01-01T00:00:00.000Z', '2022-10-18T00:00:00.000Z')), // 20220809
         "Importe": faker.datatype.float({ // acceleratedAmount
-            max: 99999999999999,
+            max: 999999999999,
             min: 500,
             precision: 0.01
         }),
         "Lote": null,
         "Marca": null,
         "Estable": faker.random.numeric(10),
-        "Fec_Pres": parseInt(faker.date.between('2022-01-01T00:00:00.000Z', '2022-10-18T00:00:00.000Z').toString().substring(0, 10).replace('-', '').replace('-', ''), 10),
-        "FecPago": parseInt(faker.date.between('2022-01-01T00:00:00.000Z', '2022-10-18T00:00:00.000Z').toString().substring(0, 10).replace('-', '').replace('-', ''), 10),
+        "Fec_Pres": formatDate(faker.date.between('2022-01-01T00:00:00.000Z', '2022-10-18T00:00:00.000Z')),
+        "FecPago": formatDate(faker.date.between('2022-01-01T00:00:00.000Z', '2022-10-18T00:00:00.000Z')),
         "PlanCuota": faker.random.numeric(2),
         "NumCuota": null,
         "CodOper": '0005',
         "AranPag": faker.datatype.float({
-            max: 99999999999,
+            max: 99999999,
             min: 500,
             precision: 0.01
         }),
         "AranAdm": faker.datatype.float({
-            max: 99999999999,
+            max: 99999999,
             min: 500,
             precision: 0.01
         }),
-        "dFechaCarga": faker.date.between('2022-01-01T00:00:00.000Z', '2022-10-18T00:00:00.000Z').toString().substring(0, 19).replace('T', ' '),
+        "dFechaCarga": faker.date.between('2022-01-01T00:00:00.000Z', '2022-10-18T00:00:00.000Z').toISOString().substring(0,19).replace('T',' '),
         "AranEmi": null,
         "Caja": null,
         "NroAut": null,
